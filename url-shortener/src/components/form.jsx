@@ -29,28 +29,56 @@ function Form(props) {
     }
 
     var generatedKey = nanoid(5);
-    var generatedURL = "minilinkit.com/" + generatedKey
+    var generatedURL = "minilinkit.com/" + generatedKey;
 
-    if (url.preferedAlias !== '') {
-        generatedKey = url.preferedAlias
-        generatedURL = "minilinkit.com/" + url.preferedAlias
+    if (url.preferedAlias !== "") {
+      generatedKey = url.preferedAlias;
+      generatedURL = "minilinkit.com/" + url.preferedAlias;
     }
 
     const db = getDatabase();
     set(ref(db, "/" + generatedKey), {
-        generatedKey: generatedKey,
-        longURL: url.longURL,
-        preferedAlias: url.preferedAlias,
-        generatedURL: generatedURL
-    }).then((result) => {
-        setUrl({
-            generatedURL: generatedURL,
-            loading: false
-        })
-    }).catch((error) => {
-        console.log("Error adding document: ", error);
+      generatedKey: generatedKey,
+      longURL: url.longURL,
+      preferedAlias: url.preferedAlias,
+      generatedURL: generatedURL,
     })
-  };
+      .then((result) => {
+        setUrl({
+          generatedURL: generatedURL,
+          loading: false,
+        });
+      })
+      .catch((error) => {
+        console.log("Error adding document: ", error);
+      });
+  }
+
+  function hasError(key) {
+    return url.errors.indexOf(key) !== -1;
+  }
+
+  function handleChange(event) {
+    const { id, value } = event.target;
+    setUrl((prevState) => ({ ...prevState, [id]: value }));
+  }
+
+  async function validateInput() {
+    var errors = [];
+    var errorMessages = url.errorMessage;
+
+    if (url.longURL.length === 0) {
+        errors.push('longURL');
+        errorMessages['longURL'] = 'Please enter your URL!';
+    } else if (!isWebUri(url.longURL)) {
+        errors.push('longURL');
+        errorMessages["longURL"] = 'Please a URL in the form of https://www....';
+    }
+
+
+
+
+  }
 
   return (
     <div>
