@@ -144,7 +144,7 @@ function Form(props) {
         </div>
         <div
           className={
-            hasError("longURL") ? "text-danger" : "visually-hiddden"
+            hasError("longURL") ? "text-danger" : "visually-hidden"
           }
         >
           {url.errorMessage.longURL}
