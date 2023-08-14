@@ -23,7 +23,7 @@ function Form(props) {
       generatedURL: "",
     });
 
-    var isFormValid = await this.validateInput();
+    var isFormValid = await validateInput();
     if (!isFormValid) {
       return;
     }
@@ -85,13 +85,11 @@ function Form(props) {
         errorMessages["suggestedAlias"] = "Spaces are not allowed in URLS";
       }
 
-      var keyExists = await function checkKeyExists() {
-        if (keyExists.exists()) {
-          errors.push("suggestedAlias");
-          errorMessages["suggestedAlias"] =
-            "The Alias you have entered already exists! Please enter another one =-)";
-        }
-      };
+      var keyExists = await checkKeyExists();
+      if (keyExists.exists()) {
+        errors.push("suggestedAlias");
+        errorMessages["suggestedAlias"] = "The Alias you have entered already exists! Please enter another one =-)";
+      }
     }
 
     setUrl({
@@ -135,17 +133,13 @@ function Form(props) {
             type="url"
             required
             className={
-              hasError("longURL")
-                ? "form-control is-invalid"
-                : "form-control"
+              hasError("longURL") ? "form-control is-invalid" : "form-control"
             }
             placeholder="https://wwww..."
           />
         </div>
         <div
-          className={
-            hasError("longURL") ? "text-danger" : "visually-hidden"
-          }
+          className={hasError("longURL") ? "text-danger" : "visually-hidden"}
         >
           {url.errorMessage.longURL}
         </div>
@@ -170,9 +164,7 @@ function Form(props) {
           </div>
           <div
             className={
-              hasError("suggestedAlias")
-                ? "text-danger"
-                : "visually-hidden"
+              hasError("suggestedAlias") ? "text-danger" : "visually-hidden"
             }
           >
             {url.errorMessage.suggestedAlias}
