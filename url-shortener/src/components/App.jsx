@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
 import Form from "./form";
@@ -10,10 +10,10 @@ function App() {
       <div className="App">
         <div className="auth-wrapper">
           <div className="auth-inner">
-            <Switch>
-              <Route exact path="/" Component={Form} />
-              <Route path="/app" Component={Form} />
-            </Switch>
+            <Routes>
+              <Route exact path="/" element={ <Form />} />
+              <Route path="/app" Component={ <Form />} />
+            </Routes>
           </div>
         </div>
       </div>
