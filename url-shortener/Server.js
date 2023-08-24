@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-// const axios = require("axios");
+const axios = require("axios");
 require("dotenv").config();
 
 const app = express();
@@ -20,7 +20,8 @@ app.get("/", (req, res) => {
     "messagingSenderId": process.env.REACT_APP_MESSAGING_SENDER_ID,
     "appId": process.env.REACT_APP_APP_ID,
     "measurementId": process.env.REACT_APP_MEASUREMENT_ID
-  };
+  }
+
   res.json(firebaseConfig);
 });
 
